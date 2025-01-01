@@ -1,4 +1,5 @@
 ﻿using FoodPlannerApp.Areas.Identity.Data;
+using FoodPlannerApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,8 @@ public class ApplicationDbContext : IdentityDbContext<User>
     {
     }
 
+    public DbSet<Recipe> Recipes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -21,6 +24,16 @@ public class ApplicationDbContext : IdentityDbContext<User>
         // Add your customizations after calling base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
+        builder.ApplyConfiguration(new ApplicationRecipeEntityConfiguration());
+    }
+}
+
+public class ApplicationRecipeEntityConfiguration : IEntityTypeConfiguration<Recipe>
+{
+    public void Configure(EntityTypeBuilder<Recipe> builder)
+    {
+        builder.Property(x => x.Title).IsRequired();
+        builder.Property(x => x.Title).HasMaxLength(500);
     }
 }
 
