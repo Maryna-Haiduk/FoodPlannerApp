@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FoodPlannerApp.Data.RecipeRepository
 {
-    public class RecipeRepository
+    public class RecipeRepository : IRecipeRepository
     {
         private readonly ApplicationDbContext _context;
 

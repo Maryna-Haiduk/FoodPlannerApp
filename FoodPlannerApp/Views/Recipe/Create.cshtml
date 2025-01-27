@@ -1,0 +1,47 @@
+﻿@model FoodPlannerApp.Models.Recipe
+
+@{
+    ViewData["Title"] = "Create Recipe";
+}
+
+<h1>Create Recipe</h1>
+
+<form asp-controller="Recipe" asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Photo"></label>
+        <input asp-for="Photo" class="form-control" />
+        <span asp-validation-for="Photo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="ingredientsInput">Ingredients (comma-separated)</label>
+        <textarea id="ingredients" name="ingredients" class="form-control"></textarea>
+    </div>
+
+@*     <div class="form-group">
+        <label asp-for="Ingredients"></label>
+        <input type="hidden" name="ingredientsInput" value="@string.Join(", ", Model?.Ingredients ?? new List<string>())" />
+        <textarea asp-for="Ingredients" class="form-control" placeholder="Separate ingredients with commas"></textarea>
+        <span asp-validation-for="Ingredients" class="text-danger"></span>
+    </div>
+ *@    <div class="form-group">
+        <label asp-for="Instructions"></label>
+        <textarea asp-for="Instructions" class="form-control"></textarea>
+        <span asp-validation-for="Instructions" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+<p>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</p>

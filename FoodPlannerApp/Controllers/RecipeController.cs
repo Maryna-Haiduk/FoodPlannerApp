@@ -42,12 +42,30 @@ namespace FoodPlannerApp.Controllers
         }
 
         // POST: Recipe/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(Recipe recipe)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _recipeRepository.AddRecipeAsync(recipe);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(recipe);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Recipe recipe)
         {
             if (ModelState.IsValid)
             {
+                // Split ingredients string and assign to the model
+                if (!string.IsNullOrEmpty(recipe.Ingredients.First()))
+                {
+                    recipe.Ingredients = recipe.Ingredients.First().Split(',').Select(i => i.Trim()).ToList();
+                }
+
                 await _recipeRepository.AddRecipeAsync(recipe);
                 return RedirectToAction(nameof(Index));
             }

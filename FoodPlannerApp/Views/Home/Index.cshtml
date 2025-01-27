@@ -3,6 +3,46 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the food planner app!</h1>
+    <p>Create your own family recipe book here!</a>.</p>
 </div>
+
+
+@model IEnumerable<FoodPlannerApp.Models.Recipe>
+
+@{
+    ViewData["Title"] = "Recipes";
+}
+
+<h1>Recipes</h1>
+
+<p>
+    <a asp-controller="Recipe" asp-action="Create" class="btn btn-primary">Create New Recipe</a>
+</p>
+
+@if(Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in Model)
+            {
+                <tr>
+                    <td>@recipe.Title</td>
+                    <td>@recipe.Description</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@recipe.Id" class="btn btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@recipe.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@recipe.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
